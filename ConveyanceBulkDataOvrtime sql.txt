@@ -1,0 +1,174 @@
+
+---exec dbo_hrm.SP_ENTRY_EMPLOYEE01 '3370', 'EMPCONVEYANCEGET', null, null, null,'%','%','%CPDL000002%','', '', ''
+EMPCONVEYANCEGET:
+
+
+select comcod,empid into #tblempresing1 from dbo_hrm.hrempdinf where comcod=@comp1  and  gcod='01999' and gdatad='01-Jan-1900'	
+
+select comcod, empid,  desigid=gcod, refno  into #tbldanddeptempallin from  hrempdinf where comcod=@Comp1
+ and gcod like '03%' 
+	
+select comcod, empid, joindate=isnull(gdatad,'01-Jan-1900') into #tbljoinmplistallin from hrempdinf where comcod=@Comp1 
+	and empid in (select empid from  #tbldanddeptempallin)and gcod='01003'
+	
+select comcod, empid,  birthdate=isnull(gdatad,'01-Jan-1900') into #tblbirthemplistallin from hrempdinf where comcod=@Comp1 
+	and empid in (select empid from  #tbldanddeptempallin)and gcod='01008'
+
+
+select comcod, empid  into #tblemployeeinacti from  dbo_hrm.hrempdinf  where GCOD like '01999' and GDATAD <> '01-Jan-1900'
+
+
+select comcod, empid, gcod, gdatan,rate, percnt into   #tblemployee from hrempdinf where comcod=@Comp1 and gcod like '04%'  
+
+select comcod, empid,
+	bsal=sum(case when gcod='04001' then gdatan else gdatan*0 end), hrent=sum(case when gcod='04002' then gdatan else gdatan*0 end),
+	cven=sum(case when gcod='04003' then gdatan else gdatan*0 end), mallow=sum(case when gcod='04004' then gdatan else gdatan*0 end),
+    arsal=sum(case when gcod='04005' then gdatan else gdatan*0 end), pickup=sum(case when gcod='04006' then gdatan else gdatan*0 end),
+	fuel=sum(case when gcod='04007' then gdatan else gdatan*0 end), entaint=sum(case when gcod='04008' then gdatan else gdatan*0 end),
+	mcell=sum(case when gcod='04009' then gdatan else gdatan*0 end), incent=sum(case when gcod='04010' then gdatan else gdatan*0 end),	
+	empcont=sum(case when gcod='04011' then gdatan else gdatan*0 end), otall=sum(case when gcod='04012' then gdatan else gdatan*0 end),
+	oth=sum(case when gcod='04099' then gdatan else gdatan*0 end),
+	
+
+
+	pfund=sum(case when gcod='04101' then gdatan else gdatan*0 end), itax=sum(case when gcod='04102' then gdatan else gdatan*0 end),
+	adv=sum(case when gcod='04103' then gdatan else gdatan*0 end),  mbill=sum(case when gcod='04104' then gdatan else gdatan*0 end),
+    othded=sum(case when gcod='04199' then gdatan else gdatan*0 end),drate=sum(case when gcod='07001' then rate else rate*0 end),
+    hrate=sum(case when gcod='07005' then rate else rate*0 end), elrate=sum(case when gcod='04001' then round(gdatan/30,0) else gdatan*0 end)
+	into #tmp1israssall from  #tblemployee group by comcod, empid
+
+
+
+select distinct  a.comcod,  a.sircode, a.sirdesc into  #tbldept  from sirinf a 
+			inner join dbo_hrm.hrempdinf  b on a.comcod=b.comcod and left(a.sircode,9)=left(b.refno,9) where  a.comcod='3101' 
+			and left(sircode,2)='94'  and right(a.sircode,3)='000' and right(a.sircode,5)<>'00000' 
+
+	select distinct comcod ,empid,  gspay=(bsal+hrent+cven+mallow+arsal+pickup)  into #tblallsal  FROM    #tmp1israssall     where empid not in (select empid from #tblemployeeinacti)
+
+	
+	--select * from #tblallsal
+
+-----birthdate
+select a.comcod, a.empid, a.joindate,  company=left(b.refno,2) +replicate('0', 10),section=b.refno, desigid=b.desigid, birthdate=isnull(c.birthdate,'01-Jan-1900')
+	into #tbljoinmplistall1in from #tbljoinmplistallin a 
+	left join  #tbldanddeptempallin  b on a.comcod=b.comcod and a.empid=b.empid
+	left join  #tblbirthemplistallin  c on a.comcod=c.comcod and a.empid=c.empid
+
+	
+	
+create table #tblempginfallin(comcod nchar(4), empid nchar(12), gcod nvarchar(12), gdatat nvarchar(250) default(''), 
+	gdatad smalldatetime ,  gdatan decimal(18,2) default(0), gdata nvarchar(250) default('') )
+
+insert into #tblempginfallin (comcod, empid, gcod, gdatat, gdatad, gdatan, gdata)
+	select comcod, empid, gcod, gdatat, gdatad, gdatan, gdatat2 from hrempdinf 
+		where comcod=@Comp1 and empid in(select empid  from #tbljoinmplistallin) and gcod like '01%' union  
+    select comcod, empid , gcod, gdatat, gdatad, gdatan , gdatat2 from hrempdinf 
+		where comcod=@Comp1 and empid in(select empid  from #tbljoinmplistallin) and gcod like '01%' and gdatad<>'01-Jan-1900' union 
+    select comcod, empid, gcod, gdatat, gdatad, gdatan, gdatat2 from hrempdinf 
+		where comcod=@Comp1 and empid in(select empid  from #tbljoinmplistallin) and gcod like '01%' and gdatan <>0.000000 union
+	select a.comcod, a.empid, a.gcod, b.hrgdesc, a.gdatad, a.gdatan, gdatat2 from hrempdinf  a left join hrginf b 
+		on a.comcod =b.comcod and a.gcod=b.hrgcod and b.hrgcod like '11%' 
+		where a.comcod=@Comp1  and a.empid in(select empid  from #tbljoinmplistallin)and gcod like '11%' 
+
+	
+select a.comcod, a.company, a.section, a.desigid,   a.empid,   idcardno=b.gdatat, desig=isnull(d.hrgdesc,''),  empname=e.empname, resdat=isnull(f.gdatad,'01-jan-1900'),  a.joindate, a.birthdate,
+	slength=[dbo].[FUN_EMPSERVISELENGTH](a.joindate, getdate()), companyname=isnull(k.sirdesc,''),sectionname=isnull(m.sirdesc,'')
+    into #tbljoinmplistallinf from #tbljoinmplistall1in a left join #tblempginfallin  b on a.comcod=b.comcod and a.empid=b.empid  and b.gcod='01001'
+
+    left join hrginf d on a.comcod=d.comcod  and a.desigid=d.hrgcod 
+    left join hrempinf e on a.comcod =e.comcod and a.empid=e.empid
+	left join hrempdinf f on a.comcod=f.comcod and a.empid=f.empid and f. gcod ='01999'
+	left join sirinf  k on a.comcod=k.comcod and a.company=k.sircode
+	left join sirinf  m on a.comcod=m.comcod and a.section=m.sircode
+
+    declare  @tbljoinempallin table( comcod nvarchar(4),  rowid int identity,   company nchar(12), secid nchar(12), desigid nchar(7),  
+		empid nchar(12),  idcardno nvarchar(50), companyname nvarchar(250),  section nvarchar(250), desig nvarchar(250),  
+		 empname nvarchar(250),  joindate smalldatetime, birthdate smalldatetime, slength nvarchar(250),resdat smalldatetime)
+		 
+    
+    insert into @tbljoinempallin(comcod,   company, secid, desigid,  empid, idcardno,companyname,  section, desig,  empname, joindate, birthdate, slength,resdat)
+	select comcod,   company, section, desigid,  empid, idcardno,companyname,  sectionname, desig,  empname, joindate, birthdate, slength,resdat from  #tbljoinmplistallinf 
+	 where empid not in (select empid from  #tblemployeeinacti)
+	 order by company, section, desigid
+
+
+	select a.comcod,   company, secid, desigid,  a.empid, idcardno,companyname,  section, desig,  empname, joindate, birthdate,
+	slength,resdat, convamt= isnull(b.gdatan,0), deptname=isnull (c.sirdesc, '')
+	 into #tblallemployeedata from  @tbljoinempallin  a left join  dbo_hrm.hrempdinf  b on a.comcod= b.comcod and a.empid= b.empid   and b.gcod like '04003' 
+	 left join #tbldept c on a.comcod=b.comcod and  left(a.secid,9) = left(c.sircode,9)
+ 	where c.sircode like @Desc1 and  secid like @Desc2 and idcardno like @Desc3
+
+
+
+	
+select a.comcod,company, secid, desigid, deptname, a.empid, idcardno,companyname,  section, desig,  empname, joindate, birthdate, slength,resdat,
+convamt,  grossal= isnull(b.gspay,0)
+from  #tblallemployeedata a left join #tblallsal b on a.comcod = b.comcod and a.empid= b.empid  
+
+
+
+
+
+drop table #tbldanddeptempallin
+drop table #tbljoinmplistallin
+drop table #tbljoinmplistall1in
+drop table #tblempginfallin
+drop table #tbljoinmplistallinf
+return
+ 
+ ---exec dbo_hrm.SP_ENTRY_EMPLOYEE01 '3101', 'EMPCONVEYANCEUPDATE', null, null, null,'930100101163','20','','', '', ''
+EMPCONVEYANCEUPDATE:
+begin
+
+declare @updateamt decimal(16,6)
+set @updateamt= CAST(@Desc2 AS DECIMAL(16, 6))
+update dbo_hrm.hrempdinf set  gdatan = @updateamt where comcod= @comp1 and empid= @Desc1  and gcod like '04003%'
+
+end 
+
+
+
+
+return
+
+
+
+
+--=====Get Section Name========================================================================================
+
+--SP_ENTRY_EMPLOYEE01 '4101','GETSECTION', '21%','21010001%','%'
+GETSECTION:
+ if(len(@Desc1)>=3 and len(@Desc2)>=1)
+	begin
+		select distinct  a.comcod,  actcode=a.sircode, actdesc=a.sircode+'-'+a.sirdesc  from sirinf a 
+			inner join hrempdinf  b on a.comcod=b.comcod and left(a.sircode,9)=left(b.refno,9) where  a.comcod=@Comp1 
+			and left(sircode,2)='94'  and right(a.sircode,3)<>'000'
+		    and a.sircode like @Desc1 and a.sircode like @Desc2  and  a.sirdesc like @Desc3  union all
+		 select @Comp1 , '000000000000','000000000000-ALL Section' order by a.comcod, a.sircode
+	
+	end
+	else
+		select comcod=@Comp1, actcode='000000000000', actdesc= '000000000000-All Section'
+
+return
+
+
+
+
+--===============Get Department Name=============================================================================
+--dbo_hrm.SP_ENTRY_EMPLOYEE01 '3101','GETDEPARTMENT',null,null,null, '94%','%'
+GETDEPARTMENT:
+--if(len(@Desc1)>=3)
+	begin
+		select distinct  a.comcod,  actcode=a.sircode, actdesc=a.sircode+'-'+a.sirdesc, a.sirdesc  from sirinf a 
+			inner join hrempdinf  b on a.comcod=b.comcod and left(a.sircode,9)=left(b.refno,9) where  a.comcod=@Comp1 
+			and left(sircode,2)='94'  and right(a.sircode,3)='000' and right(a.sircode,5)<>'00000' 
+		    and a.sircode like @Desc1 and  a.sirdesc like @Desc2  union all
+		 select @Comp1 , '000000000000','000000000000-ALL Department','ALL Department' order by a.comcod, a.sircode
+	
+	end
+--else	
+--	select comcod=@Comp1, sircode='000000000000', sirdesc= '000000000000-All Department'
+	
+return
+
