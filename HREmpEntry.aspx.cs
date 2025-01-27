@@ -184,7 +184,7 @@ namespace RealERPWEB.F_81_Hrm.F_82_App
                     this.ddlCompanyAgg.DataSource = ds5.Tables[0];
                     this.ddlCompanyAgg.DataBind();
                     this.GetDepartment();
-                   // this.ddlCompanyAgg_SelectedIndexChanged(null, null);
+                    this.ddlCompanyAgg_SelectedIndexChanged(null, null);
                     return;
                 }
                 else if (this.Request.QueryString["Type"].ToString().Trim() == "Officetime")
@@ -271,10 +271,10 @@ namespace RealERPWEB.F_81_Hrm.F_82_App
                 int hrcomln = (type == "Aggrement") ? Convert.ToInt32((((DataTable)Session["tblcompany"]).Select("actcode='" + this.ddlCompanyAgg.SelectedValue.ToString() + "'"))[0]["hrcomln"])
                         : Convert.ToInt32((((DataTable)Session["tblcompany"]).Select("actcode='" + this.ddlCompany.SelectedValue.ToString() + "'"))[0]["hrcomln"]);
 
-                //string Company = ((type == "Aggrement") ? this.ddlCompanyAgg.SelectedValue.ToString().Substring(0, hrcomln) : this.ddlCompany.SelectedValue.ToString().Substring(0, hrcomln)) + "%";
+                string Company = ((type == "Aggrement") ? this.ddlCompanyAgg.SelectedValue.ToString().Substring(0, hrcomln) : this.ddlCompany.SelectedValue.ToString().Substring(0, hrcomln)) + "%";
 
 
-                string Company = ((type == "Aggrement") ? (this.ddldepartmentagg.SelectedValue.ToString() == "000000000000" ? "" : this.ddldepartmentagg.SelectedValue.ToString().Substring(0, 9)) : (this.ddlDepartment.SelectedValue.ToString() == "000000000000" ? "" : this.ddlDepartment.SelectedValue.ToString().Substring(0, 9))) + "%";
+                ///tring Company = ((type == "Aggrement") ? (this.ddldepartmentagg.SelectedValue.ToString() == "000000000000" ? "" : this.ddldepartmentagg.SelectedValue.ToString().Substring(0, 9)) : (this.ddlDepartment.SelectedValue.ToString() == "000000000000" ? "" : this.ddlDepartment.SelectedValue.ToString().Substring(0, 9))) + "%";
 
                 string txtSProject = (type == "Aggrement") ? (this.txtSrcPro.Text.Trim() + "%") : (this.txtSrcDepartment.Text.Trim() + "%");
                 string CallType = (this.Request.QueryString["Type"].ToString().Trim() == "Aggrement") ? "GETPROJECTNAME" : "GETPROJECTNAMEFOT";
@@ -1399,15 +1399,20 @@ namespace RealERPWEB.F_81_Hrm.F_82_App
                     }
 
 
-
-                    if (txtSrcEmp.Text.Length > 0)
-                    {
-                        this.ddlCompanyAgg.SelectedValue = ((DataTable)ViewState["tblemp"]).Select("empid='" + empid + "'")[0]["companycode"].ToString();
-
-                    }
-
+                    //if (this.txtSrcCompany.Text.Length > 0 || this.txtSrcDepartment.Text.Length > 0 || this.txtSrcEmp.Text.Length > 0)
+                    //{
+                    this.ddlCompanyAgg.SelectedValue = ((DataTable)ViewState["tblemp"]).Select("empid='" + empid + "'")[0]["companycode"].ToString();
                     this.ddldepartmentagg.SelectedValue = ((DataTable)ViewState["tblemp"]).Select("empid='" + empid + "'")[0]["deptcode"].ToString();
                     this.ddlProjectName.SelectedValue = ((DataTable)ViewState["tblemp"]).Select("empid='" + empid + "'")[0]["refno"].ToString();
+
+                    //}
+
+
+
+
+
+
+
                 }
 
 

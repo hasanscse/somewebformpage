@@ -438,24 +438,6 @@ namespace RealERPWEB.F_81_Hrm.F_82_App
         protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
 
         /// <summary>
-        /// Label8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
-
-        /// <summary>
-        /// ListSalesRole control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ListSalesRole;
-
-        /// <summary>
         /// lbltOfftime control.
         /// </summary>
         /// <remarks>
@@ -634,6 +616,24 @@ namespace RealERPWEB.F_81_Hrm.F_82_App
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAggrement;
+
+        /// <summary>
+        /// lblsale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsale;
+
+        /// <summary>
+        /// ListSalesRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListSalesRole;
 
         /// <summary>
         /// lbltAtype2 control.
