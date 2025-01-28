@@ -860,7 +860,7 @@
                                     <asp:TemplateField HeaderText="Code">
                                         <FooterTemplate>
                                             <asp:LinkButton ID="lbtnCalculation" runat="server" Font-Bold="True"
-                                                Font-Size="12px" ForeColor="#000" OnClick="lbtnCalculation_Click">CalCulation</asp:LinkButton>
+                                                Font-Size="12px" ForeColor="#000" OnClick="lbtnCalculation_Click"   Style="color: white;">CalCulation</asp:LinkButton>
                                         </FooterTemplate>
                                         <ItemTemplate>
                                             <asp:Label ID="lblgvItmCodesaladd" runat="server" Height="16px"
@@ -878,8 +878,8 @@
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             <asp:LinkButton ID="lbtnTSalAdd" runat="server" Font-Bold="True"
-                                                Font-Size="12px" OnClick="lbtnTSalAdd_Click" ForeColor="#000" 
-                                                Style="text-decaration: none;">Total</asp:LinkButton>
+                                                Font-Size="12px" OnClick="lbtnTSalAdd_Click" ForeColor="White"
+                                                Style="text-decaration: none; color: white;">Total</asp:LinkButton>
                                         </FooterTemplate>
                                         <FooterStyle CssClass="bg-primary text-white" Font-Bold="True" HorizontalAlign="Left" />
                                         <HeaderStyle CssClass="bg-primary text-white" HorizontalAlign="Center" VerticalAlign="Top" />
@@ -965,7 +965,7 @@
                                         <FooterTemplate>
                                             <asp:LinkButton ID="lbtnTSalSub" runat="server" Font-Bold="True"
                                                 Font-Size="12px" ForeColor="#000" OnClick="lbtnTSalSub_Click"
-                                                Style="text-decaration: none;">Total</asp:LinkButton>
+                                                Style="text-decaration: none; color: white;">Total</asp:LinkButton>
                                         </FooterTemplate>
                                         <FooterStyle  Font-Bold="True" HorizontalAlign="Left" />
                                         <HeaderStyle  HorizontalAlign="Center" VerticalAlign="Top" />
