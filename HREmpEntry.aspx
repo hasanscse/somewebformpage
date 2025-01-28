@@ -178,12 +178,19 @@
         .small-textbox1 {
             height: 30px;
             width: 141px;
-            font-size: 12px;
+            font-size: 15px;
             padding: 3px 6px;
         }
 
         .custom-col {
             width: 6.5%; /* 1.5/12 = 0.125, which is 12.5% of the container width */
+        }
+
+
+
+
+        .bodylblfontsize {
+            font-size: 15px;
         }
     </style>
   
@@ -391,53 +398,51 @@
 
                                     <!-- Joining Date -->
                                     <div class="col-md-1 d-flex align-items-center">
-                                        <asp:Label ID="lbljoindate" runat="server" CssClass="lblTxt lblName"  Font-Bold="true">Joining Date:</asp:Label>
+                                        <asp:Label ID="lbljoindate" runat="server" CssClass="lblTxt lblName bodylblfontsize"  Font-Bold="true" >Joining Date:</asp:Label>
                                      </div>
                                       
 
-                                    <div class="col-md-2 d-flex align-items-center">
-                                        <asp:Label ID="lblvaljoindate" runat="server" ReadOnly="true"   Width="100" CssClass="form-control small-textbox1"></asp:Label>
+                                     <div class="custom-col d-flex align-items-center" style="width: 150px;"  >     
+                                        <asp:Label ID="lblvaljoindate" runat="server" ReadOnly="true"   Width="118" CssClass="form-control small-textbox1" Font-Bold="true" style="text-align: center; font-size: 14px;" ></asp:Label>
                                     </div>
 
 
 
                                     <!-- PF Starting Date -->
                                     <div class="col-md-1.5 d-flex align-items-center">
-                                        <asp:Label ID="lblpfstdate" runat="server" CssClass="lblTxt lblName" Font-Bold="true">PF Starting Date:</asp:Label>
+                                        <asp:Label ID="lblpfstdate" runat="server" CssClass="lblTxt lblName bodylblfontsize" Font-Bold="true">PF Starting Date:</asp:Label>
                                      </div>
 
-                                 <div class="col-md-2 d-flex align-items-center">                                       
-                                       <asp:TextBox ID="txtPf" runat="server" CssClass="form-control small-textbox1" width="100"></asp:TextBox>
+                                  <div class="custom-col d-flex align-items-center" style="width: 150px;"  >                                      
+                                       <asp:TextBox ID="txtPf" runat="server" CssClass="form-control small-textbox1" Font-Bold="true" width="118"  style="text-align: center; font-size: 14px; margin-left: 0.8rem;" ></asp:TextBox>
                                         <cc1:CalendarExtender ID="txtPf_CalendarExtender" runat="server" Enabled="True" Format="dd-MMM-yyyy" TargetControlID="txtPf"></cc1:CalendarExtender>
                                     </div>
 
 
 
+
                                     <!-- End Date -->
-                                   <div class="col-md-1.5 d-flex align-items-center">
-                                        <asp:Label ID="lblpfenddate" runat="server" CssClass="lblTxt lblName" Font-Bold="true">End Date:</asp:Label>
-                                       </div>
+                                    <div class="custom-col d-flex align-items-center" style="width: 100px;"  >
+                                        <asp:Label ID="lblpfenddate" runat="server" CssClass="lblTxt lblName bodylblfontsize" Font-Bold="true">End Date:</asp:Label>
+                                 </div>
 
-
-
-
-                                   <div class="col-md-2 d-flex align-items-center">
-                                        <asp:TextBox ID="txtpfend" runat="server" CssClass="form-control small-textbox ml-5"  width="120" ></asp:TextBox>
+                                   <div class="custom-col d-flex align-items-center" style="width: 140px;"  >
+                                        <asp:TextBox ID="txtpfend" runat="server" CssClass="form-control small-textbox"  width="120" ></asp:TextBox>
                                         <cc1:CalendarExtender ID="txtpfend_CalendarExtender" runat="server" Enabled="True" Format="dd-MMM-yyyy" TargetControlID="txtpfend"></cc1:CalendarExtender>
                                     </div>
 
 
 
                                     <!-- Designation -->
-                                     <div class="col-md-1 d-flex align-items-center ml-4">
-                                        <asp:Label ID="lbltDesignation" runat="server" CssClass="lblTxt lblName" Font-Bold="true">Designation:</asp:Label>
+                                     <div class="custom-col d-flex align-items-center" style="width: 110px;" >
+                                        <asp:Label ID="lbltDesignation" runat="server" CssClass="lblTxt lblName bodylblfontsize" Font-Bold="true">Designation:</asp:Label>
                                         <asp:Label ID="lblDesgination" runat="server" ReadOnly="true" visible="false" CssClass="form-control small-textbox1"></asp:Label>
                                  
                                     </div>
 
                                     <!-- Designation Dropdown -->
-                                    <div class="col-md-2 d-flex align-items-center">
-                                        <asp:DropDownList ID="ddlDesignation" AutoPostBack="true" Width="130" Height="30px" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" runat="server" CssClass="chzn-select form-control inputTxt"></asp:DropDownList>
+                                    <div class="custom-col d-flex align-items-center" sstyle="width: 130px;" >
+                                        <asp:DropDownList ID="ddlDesignation" AutoPostBack="true" Width="150" Height="30px" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" runat="server" Font-Bold="true" CssClass="chzn-select form-control inputTxt"></asp:DropDownList>
                                     </div>
 
                               
@@ -446,16 +451,14 @@
 
                                 <div class="row">
                                     <!-- Office InTime -->
-
-
                                    <div class="col-md-1 d-flex align-items-center">
                                         <asp:Label ID="lbltOfftime" runat="server" CssClass="lblTxt lblName" Font-Bold="true">Office InTime:</asp:Label>   
                                       </div>
 
 
-                                    <div class="col-md-2 d-flex align-items-center">
+                                    <div class="custom-col d-flex align-items-center" style="width: 150px;"  >     
                                         <asp:Label ID="lbloffintime" runat="server" ReadOnly="true" Visible="false" CssClass="form-control small-textbox1"></asp:Label>
-                                        <asp:DropDownList ID="ddlOffintime" AutoPostBack="true" Width="100" Height="30px" OnSelectedIndexChanged="ddlOffintime_SelectedIndexChanged" runat="server" CssClass="form-control inputTxt" TabIndex="16"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlOffintime" AutoPostBack="true" Width="118" Height="30px" Font-Bold="true" OnSelectedIndexChanged="ddlOffintime_SelectedIndexChanged"  style="text-align: center; font-size: 14px;" runat="server" CssClass="form-control inputTxt" TabIndex="16"></asp:DropDownList>
                                     </div>
                                    
 
@@ -463,13 +466,13 @@
 
                                     <!-- Office OutTime -->
                                     <div class="col-md-1.5 d-flex align-items-center">
-                                        <asp:Label ID="lbltOfftime0" runat="server" CssClass="lblTxt lblName" Style="margin-right: 5px;" Font-Bold="true">Office OutTime:</asp:Label>
+                                        <asp:Label ID="lbltOfftime0" runat="server" CssClass="lblTxt lblName "  Font-Bold="true">Office OutTime:</asp:Label>
                                         <asp:Label ID="lbloffouttime" runat="server" ReadOnly="true" Width="98" visible="false"  CssClass="form-control small-textbox"></asp:Label>
                                     </div>
 
 
-                                     <div class="col-md-2 d-flex align-items-center">
-                                        <asp:DropDownList ID="ddlOffouttime" AutoPostBack="true"  Width="100" height="30px" OnSelectedIndexChanged="ddlOffouttime_SelectedIndexChanged" runat="server" Style="text-align: left" CssClass="form-control inputTxt" TabIndex="0"></asp:DropDownList>
+                                     <div class="custom-col d-flex align-items-center" style="width: 160px;" >
+                                        <asp:DropDownList ID="ddlOffouttime" AutoPostBack="true"  Width="118" height="30px" Font-Bold="true" OnSelectedIndexChanged="ddlOffouttime_SelectedIndexChanged" runat="server" Style="text-align: center" CssClass="form-control inputTxt ml-4" TabIndex="0"></asp:DropDownList>
                                     </div>
 
 
@@ -478,28 +481,27 @@
 
 
                                     <div class="col-md-1.5 d-flex align-items-center">
-                                        <asp:Label ID="lbltLantime" runat="server" CssClass="lblTxt lblName" Font-Bold="true">Lunch InTime:</asp:Label>
+                                        <asp:Label ID="lbltLantime" runat="server" CssClass="lblTxt lblName bodylblfontsize" Font-Bold="true">Lunch InTime:</asp:Label>
                                         <asp:Label ID="lbllanintime" runat="server" Width="98" visible="false" ReadOnly="true" CssClass="form-control small-textbox"></asp:Label>
                                     </div>
 
-                                     <div class="col-md-2 d-flex align-items-center">
-
-                                        <asp:DropDownList ID="ddlLanintime" AutoPostBack="true" Width="120" height="30px" OnSelectedIndexChanged="ddlLanintime_SelectedIndexChanged" runat="server" CssClass="form-control inputTxt ml-4" ></asp:DropDownList>
+                                     <div class="custom-col d-flex align-items-center" style="width: 155px;"  >
+                                        <asp:DropDownList ID="ddlLanintime" AutoPostBack="true" Width="118" height="30px" Font-Bold="true" OnSelectedIndexChanged="ddlLanintime_SelectedIndexChanged" runat="server" CssClass="form-control inputTxt" style="margin-left: 1.0rem;" ></asp:DropDownList>
                                     </div>
 
 
 
 
                                     <!-- Lunch OutTime -->
-                                    <div class="col-md-1 d-flex align-items-center">
-                                        <asp:Label ID="lbltLantime0" runat="server" CssClass="lblTxt lblName" Style="margin-right: 5px;" Font-Bold="true">Lunch OutTime:</asp:Label>
+                                     <div class="custom-col d-flex align-items-center" style="width: 100px;"  >
+                                        <asp:Label ID="lbltLantime0" runat="server" CssClass="lblTxt lblName bodylblfontsize"  Font-Bold="true">Lunch OutTime:</asp:Label>
                                         <asp:Label ID="lbllanouttime" runat="server" Width="98" visible="false" ReadOnly="true" CssClass="form-control small-textbox"></asp:Label>
                                     </div>
 
 
 
                                    <div class="col-md-2 d-flex align-items-center ">
-                                        <asp:DropDownList ID="ddlLanouttime" AutoPostBack="true" OnSelectedIndexChanged="ddlLanouttime_SelectedIndexChanged"  height="30px" Width="130" Style="text-size-adjust: auto;" runat="server" CssClass="form-control inputTxt" TabIndex="18"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlLanouttime" AutoPostBack="true" OnSelectedIndexChanged="ddlLanouttime_SelectedIndexChanged" Font-Bold="true"  height="30px" Width="110" Style="text-size-adjust: auto;" runat="server" CssClass="form-control inputTxt" TabIndex="18"></asp:DropDownList>
                                     </div>
 
                                 </div>
@@ -509,28 +511,31 @@
 
 
                                      <div class="col-md-1 d-flex align-items-center">
-                                        <asp:Label ID="lbltEduQua" runat="server" CssClass="lblTxt lblName" Font-Bold="true">Last Degree:</asp:Label>
+                                        <asp:Label ID="lbltEduQua" runat="server" CssClass="lblTxt lblName bodylblfontsize" Font-Bold="true">Last Degree:</asp:Label>
                                     </div>
 
-                                     <div class="col-md-2 d-flex align-items-center">
+                                      <div class="custom-col d-flex align-items-center" style="width: 150px;"  >     
                                         <asp:Label ID="lblEduQua" runat="server" visible="false" CssClass="form-control small-textbox1"></asp:Label>
-                                          <asp:DropDownList ID="ddlEduQua" AutoPostBack="true" OnSelectedIndexChanged="ddlEduQua_SelectedIndexChanged" runat="server" Width="100" Height="30px" CssClass="form-control inputTxt" TabIndex="10"></asp:DropDownList>
+                                          <asp:DropDownList ID="ddlEduQua" AutoPostBack="true" OnSelectedIndexChanged="ddlEduQua_SelectedIndexChanged" runat="server" Font-Bold="true" Width="118" Height="30px" CssClass="form-control inputTxt" TabIndex="10"></asp:DropDownList>
                                     </div>
                    
 
 
 
                                     <!-- Passing Year -->
-                                      <div class="col-md-1.5 d-flex align-items-center">
-                                        <asp:Label ID="lbltEduPass" runat="server"  CssClass="lblTxt lblName" Font-Bold="true">Passing Year:</asp:Label>
+                                     <div class="custom-col d-flex align-items-center" style="width: 90.30px;"  >
+                                        <asp:Label ID="lbltEduPass" runat="server"  CssClass="lblTxt lblName bodylblfontsize" Font-Bold="true">Passing Year:</asp:Label>
                                      </div>
 
 
 
 
-                                     <div class="col-md-2 d-flex align-items-center ml-4"> 
-                                        <asp:TextBox ID="txtEduPass" runat="server" Width="100" CssClass="form-control small-textbox1"></asp:TextBox>
+                                  <div class="custom-col d-flex align-items-center"   style="width: 160px;" >
+                                        <asp:TextBox ID="txtEduPass" runat="server" Width="118" Font-Bold="true" CssClass="form-control small-textbox1" style="margin-left: 1.6rem;"></asp:TextBox>
                                     </div>
+
+
+
 
 
                                     <!-- Agreement Type -->
@@ -542,8 +547,8 @@
 
 
                                     <!-- Agreement Dropdown -->
-                                    <div class="col-md-2 d-flex align-items-center">
-                                        <asp:DropDownList ID="ddlAggrement" AutoPostBack="true" OnSelectedIndexChanged="ddlProQua_SelectedIndexChanged" runat="server" CssClass="form-control inputTxt ml-1" Width="120" height="30px"></asp:DropDownList>
+                                    <div class="custom-col d-flex align-items-center"  style="width: 90.30px;"  >
+                                        <asp:DropDownList ID="ddlAggrement" AutoPostBack="true" OnSelectedIndexChanged="ddlProQua_SelectedIndexChanged" runat="server" CssClass="form-control inputTxt ml-1" Width="120" height="30px" Font-Bold="true"></asp:DropDownList>
                                     </div>
 
 
@@ -557,11 +562,11 @@
                                        <div class="row ">
 
                                           <div class="col-md-1 d-flex align-items-center" >
-                                        <asp:Label ID="lblsale" runat="server" CssClass="lblTxt lblName "  Font-Bold="true" >Sales Role:</asp:Label>
+                                        <asp:Label ID="lblsale" runat="server" CssClass="lblTxt lblName fontsize "  Font-Bold="true" >Sales Role:</asp:Label>
                                        </div>
 
-                                    <div class="col-md-2 d-flex align-items-center ">
-                                    <asp:ListBox ID="ListSalesRole" runat="server" Width="150" CssClass="form-control form-control-sm small-textbox1" SelectionMode="Multiple"></asp:ListBox>
+                                      <div class="custom-col d-flex align-items-center" style="width: 150px;"  >     
+                                    <asp:ListBox ID="ListSalesRole" runat="server" Width="150" Font-Bold="true" CssClass="form-control form-control-sm small-textbox1" SelectionMode="Multiple"></asp:ListBox>
                                     </div>
 
 
